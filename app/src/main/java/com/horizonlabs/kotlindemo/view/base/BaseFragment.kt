@@ -1,4 +1,4 @@
-package com.horizonlabs.kotlindemo.ui.base
+package com.horizonlabs.kotlindemo.view.base
 
 import androidx.fragment.app.Fragment
 

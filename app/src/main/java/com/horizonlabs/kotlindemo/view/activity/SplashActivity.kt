@@ -1,4 +1,4 @@
-package com.horizonlabs.kotlindemo.ui.activity
+package com.horizonlabs.kotlindemo.view.activity
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,10 +10,10 @@ class SplashActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+        setContentView(R.layout.content_splash_screen)
 
         Handler().postDelayed({
-            val mainIntent = Intent(this, LoginActivity::class.java)
+            val mainIntent = Intent(this, MainActivity::class.java)
             startActivity(mainIntent)
             finish()
         }, 1000)
