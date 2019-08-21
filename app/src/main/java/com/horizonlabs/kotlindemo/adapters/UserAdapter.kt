@@ -15,10 +15,10 @@ import java.util.*
 /**
  * Created by Rajeev Ranjan -  ABPB on 20-08-2019.
  */
-class UserAdapter(internal var context: Context) : RecyclerView.Adapter<UserAdapter.UserHolder>() {
+class UserAdapter(internal var context: Context?) : RecyclerView.Adapter<UserAdapter.UserHolder>() {
 
     private var itemClick: ItemClick? = null
-    internal var userEntities: List<UserEntity> = ArrayList<UserEntity>()
+    internal var userEntities: List<UserEntity>? = ArrayList<UserEntity>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): UserHolder {
         val itView = LayoutInflater.from(viewGroup.context)
@@ -27,24 +27,21 @@ class UserAdapter(internal var context: Context) : RecyclerView.Adapter<UserAdap
     }
 
     override fun onBindViewHolder(holder: UserHolder, i: Int) {
-        val userEntity = userEntities[i]
-        holder.tvName.setText(userEntity.name)
-        holder.tvUserName.setText(userEntity.name)
-        holder.tvShortName.setText("")
-        holder.tvAddress.setText(
-            userEntity.address.street + ", "
-                    + userEntity.address.street + ", "
-                    + userEntity.address.city
-        )
-        holder.tvMobile.setText(userEntity.phone)
-        holder.tvEmail.setText(userEntity.email)
-
-        holder.tvShortName.setBackgroundResource(R.drawable.circle_green)
+        val userEntity = userEntities?.get(i)
+        userEntity?.let {
+            holder.tvName.setText(it.name)
+            holder.tvUserName.setText(it.name)
+            holder.tvShortName.setText("")
+            holder.tvMobile.setText(it.phone)
+            holder.tvEmail.setText(it.email)
+            holder.tvAddress.setText(it.address.street + " , " + it.address.city)
+            holder.tvShortName.setBackgroundResource(R.drawable.circle_green)
+        }
 
     }
 
     override fun getItemCount(): Int {
-        return userEntities.size
+        return userEntities?.size ?: 0
     }
 
     inner class UserHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -66,18 +63,18 @@ class UserAdapter(internal var context: Context) : RecyclerView.Adapter<UserAdap
             tvEmail = itemView.findViewById(R.id.tvEmail)
             ivFavourite = itemView.findViewById(R.id.ivFavourite)
 
-            itemView.setOnClickListener {
+            /*itemView.setOnClickListener {
                 if (itemView != null && adapterPosition != RecyclerView.NO_POSITION)
                     itemClick!!.onItemClick(userEntities[adapterPosition])
             }
             ivFavourite.setOnClickListener {
                 if (itemView != null && adapterPosition != RecyclerView.NO_POSITION)
                     itemClick!!.onFavouriteClick(userEntities[adapterPosition])
-            }
+            }*/
         }
     }
 
-    fun setUserEntities(userEntities: List<UserEntity>) {
+    fun setUserEntities(userEntities: List<UserEntity>?) {
         this.userEntities = userEntities
         notifyDataSetChanged()
     }

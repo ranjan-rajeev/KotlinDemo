@@ -1,10 +1,7 @@
 package com.horizonlabs.kotlindemo.di.component
 
 import android.app.Application
-import com.horizonlabs.kotlindemo.di.module.ActivityModule
-import com.horizonlabs.kotlindemo.di.module.ApiModule
-import com.horizonlabs.kotlindemo.di.module.DBModule
-import com.horizonlabs.kotlindemo.di.module.ViewModelModule
+import com.horizonlabs.kotlindemo.di.module.*
 import com.horizonlabs.kotlindemo.view.base.BaseApplication
 import dagger.BindsInstance
 import dagger.Component
@@ -24,6 +21,7 @@ import javax.inject.Singleton
         ApiModule::class,
         DBModule::class,
         ViewModelModule::class,
+        FragmentModule::class,
         ActivityModule::class,
         AndroidSupportInjectionModule::class]
 )

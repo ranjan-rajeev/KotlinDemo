@@ -26,13 +26,16 @@ class UserRepository(val userDao: UserDao, val userApi: UserApi) {
 
     fun getUserFromLocalDb(): MutableLiveData<ApiResponse<List<UserEntity>>> {
 
-        var list = userDao.getAllUsers().value;
+        /*var list = userDao.getAllUsers().value;
         if (list != null && !list.isEmpty()) {
             userListResponse.value = ApiResponse(ApiStatus.SUCCESS, list, "Fetched data from localdb")
         } else {
             userListResponse.value = ApiResponse(ApiStatus.FAILURE, null, "Failed to fetch list from localdb")
             getUserFromServer()
         }
+*/
+        userListResponse.value = ApiResponse(ApiStatus.LOADING, null, "Fetching data from server")
+        getUserFromServer()
         return userListResponse;
 
     }
@@ -42,7 +45,7 @@ class UserRepository(val userDao: UserDao, val userApi: UserApi) {
             override fun onResponse(call: Call<List<UserEntity>>, response: Response<List<UserEntity>>) {
                 if (response.isSuccessful) {
                     Logger.d("list fetch successful")
-                    userDao.saveUser(response.body())
+                    //userDao.saveUser(response.body())
                     userListResponse.value = ApiResponse(ApiStatus.SUCCESS, response.body(), "from server")
                 }
             }

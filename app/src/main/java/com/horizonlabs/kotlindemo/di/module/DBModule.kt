@@ -21,10 +21,13 @@ class DBModule {
     @Provides
     @Singleton
     internal fun provideDatabase(application: Application): LocalDatabase {
+
         return Room.databaseBuilder(
-            application, LocalDatabase::class.java, application.packageName
+            application,
+            LocalDatabase::class.java, "_database"
         )
-            .allowMainThreadQueries().build()
+            .fallbackToDestructiveMigration()
+            .build();
     }
 
 

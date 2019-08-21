@@ -4,7 +4,7 @@ package com.horizonlabs.kotlindemo.data.remote
 /**
  * Created by Rajeev Ranjan -  ABPB on 20-08-2019.
  */
-class ApiResponse<T>(status: ApiStatus, data: T?, message: String?) {
+class ApiResponse<T>(var status: ApiStatus, var data: T?, var message: String?) {
 
     companion object {
         fun <T> success(data: T?, message: String = "success"): ApiResponse<T> {
@@ -22,6 +22,7 @@ class ApiResponse<T>(status: ApiStatus, data: T?, message: String?) {
         fun <T> loading(data: T?, message: String = "Loading data.."): ApiResponse<T> {
             return ApiResponse(ApiStatus.LOADING, data, message)
         }
+
     }
 
 }

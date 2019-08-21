@@ -9,28 +9,42 @@ import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.adapters.UserAdapter
+import com.horizonlabs.kotlindemo.data.remote.ApiResponse
+import com.horizonlabs.kotlindemo.data.remote.ApiStatus
+import com.horizonlabs.kotlindemo.model.UserEntity
 import com.horizonlabs.kotlindemo.view.base.BaseActivity
+import com.horizonlabs.kotlindemo.view.fragment.UserFragment
 import com.horizonlabs.kotlindemo.viewmodel.UserViewModel
 import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
-class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener, HasSupportFragmentInjector {
+
+
+    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
+        return dispatchingAndroidInjector
+    }
 
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
 
-    lateinit var userViewModel: UserViewModel
-    lateinit var rvAllUsers: RecyclerView
-    lateinit var userAdapter: UserAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,16 +63,11 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        userViewModel = ViewModelProviders.of(this, viewModelFactory).get(UserViewModel::class.java)
-
-
-        userViewModel.getUser().observe(this, Observer { apiResponse ->
-            {
-              apiResponse.
-            }
-        })
-
-
+        val userFragment = UserFragment()
+        userFragment.arguments = intent.extras
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.add(R.id.frame, userFragment)
+        transaction.commit()
     }
 
     override fun onBackPressed() {

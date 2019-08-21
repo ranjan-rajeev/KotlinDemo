@@ -26,10 +26,8 @@ data class UserEntity(
 
 data class Company(
     var bs: String,
-    var catchPhrase: String,
-    @SerializedName("company_name")
-    var name: String
-)
+    var catchPhrase: String
+    )
 
 data class Address(
     var city: String,
