@@ -12,6 +12,7 @@ class Constants {
         val WRITE_TIMEOUT: Long = 60
 
         val SPLASH_TIME = 1000
+        val USER_INSERTED = "user_inserted"
     }
 
 }

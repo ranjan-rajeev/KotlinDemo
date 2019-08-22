@@ -41,7 +41,10 @@ class UserFragment : BaseFragment() {
 
         userViewModel.getUser().observe(this, Observer {
 
-            if (it.status == ApiStatus.LOADING) {
+            if (it != null)
+                userAdapter.setUserEntities(it)
+
+            /*if (it.status == ApiStatus.LOADING) {
                 showDialog(this.activity, it.message)
                 showDialog(this.activity, it.message)
             } else if (it.status == ApiStatus.SUCCESS) {
@@ -55,7 +58,7 @@ class UserFragment : BaseFragment() {
 
             } else {
 
-            }
+            }*/
         })
     }
 
@@ -67,7 +70,7 @@ class UserFragment : BaseFragment() {
         userAdapter = UserAdapter(this.activity);
         rvAllUsers = view.findViewById(R.id.rvAllUsers)
         rvAllUsers.setHasFixedSize(true)
-        rvAllUsers.layoutManager = LinearLayoutManager(this.activity)
+        rvAllUsers.layoutManager = LinearLayoutManager(this.activity, RecyclerView.VERTICAL, false)
         rvAllUsers.adapter = userAdapter
         return view
     }

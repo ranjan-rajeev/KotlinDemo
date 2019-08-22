@@ -1,6 +1,7 @@
 package com.horizonlabs.kotlindemo.data.local.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import com.horizonlabs.kotlindemo.model.UserEntity
 

@@ -20,6 +20,7 @@ import javax.inject.Singleton
     modules = [
         ApiModule::class,
         DBModule::class,
+        SharedPreferenceModule::class,
         ViewModelModule::class,
         FragmentModule::class,
         ActivityModule::class,

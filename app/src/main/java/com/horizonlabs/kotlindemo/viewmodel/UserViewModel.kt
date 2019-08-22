@@ -1,9 +1,9 @@
 package com.horizonlabs.kotlindemo.viewmodel
 
-import androidx.lifecycle.MutableLiveData
+import android.content.SharedPreferences
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.horizonlabs.kotlindemo.data.local.dao.UserDao
-import com.horizonlabs.kotlindemo.data.remote.ApiResponse
 import com.horizonlabs.kotlindemo.data.remote.api.UserApi
 import com.horizonlabs.kotlindemo.data.repository.UserRepository
 import com.horizonlabs.kotlindemo.model.UserEntity
@@ -13,12 +13,13 @@ import javax.inject.Inject
 /**
  * Created by Rajeev Ranjan -  ABPB on 20-08-2019.
  */
-class UserViewModel @Inject constructor(userDao: UserDao, userApi: UserApi) : ViewModel() {
+class UserViewModel @Inject constructor(userDao: UserDao, userApi: UserApi, sharedPreferences: SharedPreferences) :
+    ViewModel() {
 
-    private val userRepository = UserRepository(userDao, userApi)
+    private val userRepository = UserRepository(userDao, userApi, sharedPreferences)
 
-    fun getUser(): MutableLiveData<ApiResponse<List<UserEntity>>> {
-        return userRepository.getUserFromLocalDb();
+    fun getUser(): LiveData<List<UserEntity>> {
+        return userRepository.getUserList();
     }
 
 }
