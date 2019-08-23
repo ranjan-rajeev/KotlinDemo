@@ -1,156 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:padding="10dp">
+<androidx.cardview.widget.CardView
+        android:layout_margin="@dimen/vertical_padding"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@android:color/white"
+        style="@style/CustomCardView">
 
     <androidx.constraintlayout.widget.ConstraintLayout
+            android:background="@android:color/white"
             android:layout_gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvShortName"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/circle_green"
-            android:gravity="center"
-            android:text="NRV"
-            android:textColor="@color/white"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:id="@+id/tvName"
-            style="@style/TextViewStyle.Large"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:gravity="center_vertical"
-            android:text="Nicholas Runolfsdottir V"
-            app:layout_constraintStart_toEndOf="@+id/tvShortName"
-            app:layout_constraintTop_toTopOf="@+id/tvShortName" />
+                android:id="@+id/tvShortName"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/circle_green"
+                android:gravity="center"
+                android:text="NRV"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:id="@+id/tvUserName"
-            style="@style/TextViewStyle.Medium"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:gravity="center_vertical"
-            android:text="Maxime_Nienow"
-            app:layout_constraintStart_toEndOf="@+id/tvShortName"
-            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:id="@+id/tvName"
+                style="@style/TextViewStyle.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:text="Nicholas Runolfsdottir V"
+                app:layout_constraintStart_toEndOf="@+id/tvShortName"
+                app:layout_constraintTop_toTopOf="@+id/tvShortName"/>
 
         <TextView
-            android:paddingTop="0dp"
-            android:paddingBottom="0dp"
-            android:id="@+id/tvAddress"
-            style="@style/TextViewStyle.Small"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            android:gravity="center_vertical"
-            android:text="Dayna Park ,Suite 449,Bartholomebury ,"
-            app:layout_constraintEnd_toEndOf="@+id/ivFavourite"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/tvShortName"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:id="@+id/tvUserName"
+                style="@style/TextViewStyle.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:gravity="center_vertical"
+                android:text="Maxime_Nienow"
+                app:layout_constraintStart_toEndOf="@+id/tvShortName"
+                app:layout_constraintTop_toBottomOf="@+id/tvName"/>
+
+        <TextView
+                android:paddingTop="0dp"
+                android:paddingBottom="0dp"
+                android:id="@+id/tvAddress"
+                style="@style/TextViewStyle.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:gravity="center_vertical"
+                android:text="Dayna Park ,Suite 449,Bartholomebury ,"
+                app:layout_constraintEnd_toEndOf="@+id/ivFavourite"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/tvShortName"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserName"/>
 
         <ImageView
-            android:id="@+id/ivFavourite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/btn_star_big_on" />
+                android:id="@+id/ivFavourite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/btn_star_big_on"/>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:orientation="horizontal"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvShortName">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvShortName">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    app:srcCompat="@android:drawable/sym_action_email" />
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        app:srcCompat="@android:drawable/sym_action_email"/>
 
                 <TextView
-                    android:id="@+id/tvEmail"
-                    style="@style/TextViewStyle.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:text="Chaim_McDermott@dana.io"
-                    android:textColor="@color/blue"
-                    android:textStyle="italic" />
+                        android:id="@+id/tvEmail"
+                        style="@style/TextViewStyle.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="Chaim_McDermott@dana.io"
+                        android:textColor="@color/blue"
+                        android:textStyle="italic"/>
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:tint="@color/colorPrimary"
-                    app:srcCompat="@android:drawable/sym_action_call" />
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:tint="@color/colorPrimary"
+                        app:srcCompat="@android:drawable/sym_action_call"/>
 
                 <TextView
-                    android:id="@+id/tvMobile"
-                    style="@style/TextViewStyle.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:gravity="center_vertical"
-                    android:text="(775)976-6794 x41206"
-                    android:textColor="@color/uvv_black"
-                    app:layout_constraintHorizontal_bias="0.4"
-                    app:layout_constraintStart_toEndOf="@+id/imageView2"
-                    app:layout_constraintTop_toTopOf="@+id/imageView2" />
+                        android:id="@+id/tvMobile"
+                        style="@style/TextViewStyle.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:gravity="center_vertical"
+                        android:text="(775)976-6794 x41206"
+                        android:textColor="@color/uvv_black"
+                        app:layout_constraintHorizontal_bias="0.4"
+                        app:layout_constraintStart_toEndOf="@+id/imageView2"
+                        app:layout_constraintTop_toTopOf="@+id/imageView2"/>
 
             </LinearLayout>
 
