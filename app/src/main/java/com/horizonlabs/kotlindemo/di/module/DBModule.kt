@@ -2,6 +2,7 @@ package com.horizonlabs.kotlindemo.di.module
 
 import android.app.Application
 import androidx.room.Room
+import com.google.firebase.database.FirebaseDatabase
 import com.horizonlabs.kotlindemo.data.local.LocalDatabase
 import com.horizonlabs.kotlindemo.data.local.dao.UserDao
 import dagger.Module
@@ -30,6 +31,11 @@ class DBModule {
             .build();
     }
 
+    @Provides
+    @Singleton
+    internal fun provideFirebaseDatabase(): FirebaseDatabase {
+        return FirebaseDatabase.getInstance();
+    }
 
     /*
      * We need the MovieDao module.

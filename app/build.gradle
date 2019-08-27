@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     signingConfigs {
@@ -17,6 +18,7 @@ android {
     }
     compileSdkVersion 28
     defaultConfig {
+        applicationId "com.horizonlabs.kotlindemo"
         minSdkVersion 15
         targetSdkVersion 28
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -27,35 +29,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    productFlavors {
-        flavorDimensions "default"
-        paid {
-            applicationId "com.horizonlabs.kotlindemo.paid"
-            resValue "string", "app_name", "Kotlin Demo"
-            versionCode 1
-            versionName "1.0.0"
-            signingConfig signingConfigs.config
-        }
-        free {
-            applicationId "com.horizonlabs.kotlindemo"
-            resValue "string", "app_name", "Kotlin Demo"
-            versionCode 1
-            versionName "1.0.0"
-            signingConfig signingConfigs.config
-        }
-    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
-configurations {
-    freeDebugImplementation
-    paidDebugImplementation
-    freeReleaseImplementation
-    paidReleaseImplementation
-}
+
 
 
 dependencies {
@@ -75,7 +55,6 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.9.1'
-
 
     /* Picasso lib for image loading  */
     implementation 'com.squareup.picasso:picasso:2.71828'
@@ -100,8 +79,9 @@ dependencies {
 
     /* Dagger2 - default dependency */
     kapt 'com.google.dagger:dagger-compiler:2.16'
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
+    implementation 'com.google.firebase:firebase-database:16.0.2'
 }
 repositories {
     mavenCentral()

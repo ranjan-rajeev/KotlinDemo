@@ -3,6 +3,7 @@
           package="com.horizonlabs.kotlindemo">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
             android:name=".view.base.BaseApplication"
             android:allowBackup="true"
@@ -23,6 +24,15 @@
         <activity
                 android:name=".view.activity.MainActivity"
                 android:label="@string/title_activity_main"
+                android:parentActivityName=".view.activity.SplashActivity"
+                android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                    android:name="android.support.PARENT_ACTIVITY"
+                    android:value="com.horizonlabs.kotlindemo.view.activity.SplashActivity"/>
+        </activity>
+        <activity
+                android:name=".view.activity.ChatActivity"
+                android:label="@string/title_activity_chat"
                 android:parentActivityName=".view.activity.SplashActivity"
                 android:theme="@style/AppTheme.NoActionBar">
             <meta-data

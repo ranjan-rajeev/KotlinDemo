@@ -1,0 +1,77 @@
+{
+  "project_info": {
+    "project_number": "362593549614",
+    "firebase_url": "https://horizonlabs-exam-preparation.firebaseio.com",
+    "project_id": "horizonlabs-exam-preparation",
+    "storage_bucket": "horizonlabs-exam-preparation.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362593549614:android:8dd0f648b6970d9c",
+        "android_client_info": {
+          "package_name": "com.horizonlabs.exampreparation"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362593549614-47fcnm81jnhenrfcd3re6agl2dt77k80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBez2LFYYJHxtUFx1bbaZXrUbOhmV21kIw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362593549614-47fcnm81jnhenrfcd3re6agl2dt77k80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362593549614:android:36f7ea452dc66428",
+        "android_client_info": {
+          "package_name": "com.horizonlabs.kotlindemo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362593549614-jdhv9pnb32u1j4b5chqjoiu0of5cru3j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.horizonlabs.kotlindemo",
+            "certificate_hash": "4f42bc0d91462fa0efd1be4e3011261ea18cac03"
+          }
+        },
+        {
+          "client_id": "362593549614-47fcnm81jnhenrfcd3re6agl2dt77k80.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBez2LFYYJHxtUFx1bbaZXrUbOhmV21kIw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362593549614-47fcnm81jnhenrfcd3re6agl2dt77k80.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -15,5 +15,6 @@
     <dimen name="btn_min_height">40dp</dimen>
     <dimen name="button_radius_large">50dp</dimen>
     <dimen name="button_radius_small">5dp</dimen>
+    <dimen name="chat_margin">48dp</dimen>
 
 </resources>

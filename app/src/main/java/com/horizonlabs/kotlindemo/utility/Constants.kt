@@ -13,6 +13,9 @@ class Constants {
 
         val SPLASH_TIME = 1000
         val USER_INSERTED = "user_inserted"
+        val CHAT_OPENED_FIRST_TIME ="chat_opened_first_time"
+        val CHAT_SENT: Byte = 1
+        val CHAT_RECEIVED: Byte = 2
     }
 
 }

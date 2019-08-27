@@ -5,12 +5,13 @@ import android.os.Bundle
 import android.os.Handler
 import android.view.Window
 import android.view.WindowManager
-import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
+import com.google.firebase.database.FirebaseDatabase
 import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.view.base.BaseActivity
 
+
 class SplashActivity : BaseActivity() {
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,9 +21,11 @@ class SplashActivity : BaseActivity() {
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         setContentView(R.layout.content_splash_screen)
-
+        var database = FirebaseDatabase.getInstance()
+        val dbChat = database.getReference("chat")
+        val id = dbChat.push().key
         Handler().postDelayed({
-            val mainIntent = Intent(this, MainActivity::class.java)
+            val mainIntent = Intent(this, ChatActivity::class.java)
             startActivity(mainIntent)
             finish()
         }, 1000)
