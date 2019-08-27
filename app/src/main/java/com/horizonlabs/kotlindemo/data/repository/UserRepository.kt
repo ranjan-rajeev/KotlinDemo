@@ -33,7 +33,7 @@ class UserRepository(
     var list: MutableLiveData<List<UserEntity>> = MutableLiveData()
 
     fun getUserList(): LiveData<List<UserEntity>> {
-        if (!sharedPreferences.getBoolean(Constants.USER_INSERTED, false)) {
+        if (!sharedPreferences.getBoolean(Constants.FIRST_LAUNCH, false)) {
             getUserFromServer()
         }
         return userDao.getAllUsers()
@@ -45,7 +45,7 @@ class UserRepository(
                 if (response.isSuccessful) {
                     Logger.d("list fetch successful")
                     insert(response.body())
-                    sharedPreferences.edit().putBoolean(Constants.USER_INSERTED, true).commit()
+                    sharedPreferences.edit().putBoolean(Constants.FIRST_LAUNCH, true).commit()
                 }
             }
 

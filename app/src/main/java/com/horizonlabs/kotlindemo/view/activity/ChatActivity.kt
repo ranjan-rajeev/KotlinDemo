@@ -10,6 +10,7 @@ import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.adapters.ChatAdapter
 import com.horizonlabs.kotlindemo.view.base.BaseActivity
 import com.horizonlabs.kotlindemo.viewmodel.ChatViewModel
+import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_chat.*
 import javax.inject.Inject
 
@@ -26,6 +27,7 @@ class ChatActivity : BaseActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
         setSupportActionBar(toolbar)
+        AndroidInjection.inject(this)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         chatAdapter = ChatAdapter(this);

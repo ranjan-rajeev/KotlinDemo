@@ -31,7 +31,7 @@ class ChatRepository(
     var list: MutableLiveData<List<ChatEntity>> = MutableLiveData()
 
     fun getChatList(): LiveData<List<ChatEntity>> {
-        if (!sharedPreferences.getBoolean(Constants.CHAT_OPENED_FIRST_TIME, false)) {
+        if (!sharedPreferences.getBoolean(Constants.FIRST_LAUNCH, false)) {
             getChatFromServer()
         }
         return chatDao.getAllChat()
@@ -72,14 +72,4 @@ class ChatRepository(
     fun deleteChat(chatEntity: ChatEntity) {
         mExecutor.execute { chatDao.deleteChat(chatEntity) }
     }
-
-    fun addInitialChat(){
-        val chatEntity = ChatEntity(Constants.CHAT_RECEIVED,"Welcome to Exam Preparation !!!")
-        val chatEntity = ChatEntity(Constants.CHAT_RECEIVED,"My Name is Kia and i will be guiding you at various stages of your Exam Preparation.")
-        val chatEntity = ChatEntity(Constants.CHAT_RECEIVED,"I will be glad to know more about you to help you in a better way.")
-        val id = dbChat.push().getKey()
-
-        dbComments.child(id!!).setValue(commentsEntity)
-    }
-    var chat  = getInitialChat().addInitialChat()
 }
