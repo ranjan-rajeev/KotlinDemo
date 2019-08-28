@@ -3,6 +3,7 @@ package com.horizonlabs.kotlindemo.di.module
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.horizonlabs.kotlindemo.di.ViewModelKey
+import com.horizonlabs.kotlindemo.viewmodel.ChatViewModel
 import com.horizonlabs.kotlindemo.viewmodel.UserViewModel
 import dagger.Binds
 import dagger.Module
@@ -27,5 +28,10 @@ internal abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(UserViewModel::class)
-    protected abstract fun movieListViewModel(userViewModel: UserViewModel): ViewModel
+    protected abstract fun userViewModel(userViewModel: UserViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(ChatViewModel::class)
+    protected abstract fun chatViewModel(userViewModel: ChatViewModel): ViewModel
 }

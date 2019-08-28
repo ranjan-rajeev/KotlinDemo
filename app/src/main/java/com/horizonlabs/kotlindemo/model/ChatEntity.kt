@@ -9,11 +9,13 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class ChatEntity(
-    var chatType: Byte,
-    var chatDetails: String
+    var chatType: Int,
+    var chatDetails: String,
+    var isUserInputRequired: Boolean,
+    var firebaseId: String = ""
 ) {
     @PrimaryKey(autoGenerate = true)
-    val chatId: Int = 0
+    public var chatId: Int = 0
 }
 
 

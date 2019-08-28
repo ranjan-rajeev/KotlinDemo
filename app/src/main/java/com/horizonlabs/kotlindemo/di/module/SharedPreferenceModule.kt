@@ -7,6 +7,7 @@ import com.google.gson.Gson
 import com.horizonlabs.kotlindemo.data.local.LocalDatabase
 import com.horizonlabs.kotlindemo.data.local.dao.UserDao
 import com.horizonlabs.kotlindemo.model.ProfileDetailsEntity
+import com.horizonlabs.kotlindemo.utility.Constants
 import dagger.Module
 import dagger.Provides
 import java.util.concurrent.Executors
@@ -23,9 +24,6 @@ class SharedPreferenceModule {
     private var PRIVATE_MODE = 0
     private val PREF_NAME = "kotlin_demo"
 
-    @Inject
-    lateinit var gson: Gson
-
     @Provides
     @Singleton
     internal fun provideSharedPreference(application: Application): SharedPreferences {
@@ -38,4 +36,18 @@ class SharedPreferenceModule {
         return sharedPreferences.edit()
     }
 
+    @Provides
+    @Singleton
+    internal fun provideUser(sharedPreferences: SharedPreferences, gson: Gson): ProfileDetailsEntity {
+
+
+        var str = sharedPreferences.getString(Constants.USER_DETAILS, "")
+        if (!str.equals("")) {
+            return gson.fromJson(
+                sharedPreferences.getString(Constants.USER_DETAILS, ""),
+                ProfileDetailsEntity::class.java
+            )
+        }
+        return ProfileDetailsEntity()
+    }
 }

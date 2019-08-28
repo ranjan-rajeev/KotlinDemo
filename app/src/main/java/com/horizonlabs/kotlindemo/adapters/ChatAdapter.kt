@@ -1,7 +1,6 @@
 package com.horizonlabs.kotlindemo.adapters
 
 import android.content.Context
-import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.model.ChatEntity
 import com.horizonlabs.kotlindemo.utility.Constants
-import java.util.*
 
 
 /**
@@ -29,6 +27,10 @@ class ChatAdapter(internal var context: Context?) : RecyclerView.Adapter<ChatAda
 
     override fun onBindViewHolder(holder: ChatHolder, i: Int) {
         val userEntity = chatEntities?.get(i)
+
+        if ((i - 1) == chatEntities!!.size) {
+            userEntity?.let { itemClick!!.onLastItemReached(it) }
+        }
         userEntity?.let {
             if (it.chatType == Constants.CHAT_RECEIVED) {
                 holder.msgReceived.setText(it.chatDetails)
@@ -39,9 +41,7 @@ class ChatAdapter(internal var context: Context?) : RecyclerView.Adapter<ChatAda
                 holder.msgReceived.visibility = View.GONE
                 holder.msgSent.visibility = View.VISIBLE
                 holder.msgSent.setText(it.chatDetails)
-
             }
-
         }
 
     }
@@ -67,9 +67,12 @@ class ChatAdapter(internal var context: Context?) : RecyclerView.Adapter<ChatAda
     }
 
     interface ItemClick {
+
+        fun onLastItemReached(chatEntity: ChatEntity)
+
         fun onItemClick(chatEntity: ChatEntity)
 
-        fun onFavouriteClick(chatEntity: ChatEntity)
+        fun onLongClick(chatEntity: ChatEntity)
     }
 
     fun setOnItemClickListener(listener: ItemClick) {

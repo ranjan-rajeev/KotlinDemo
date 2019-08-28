@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.room.Room
 import com.google.firebase.database.FirebaseDatabase
 import com.horizonlabs.kotlindemo.data.local.LocalDatabase
+import com.horizonlabs.kotlindemo.data.local.dao.ChatDao
 import com.horizonlabs.kotlindemo.data.local.dao.UserDao
 import dagger.Module
 import dagger.Provides
@@ -46,5 +47,11 @@ class DBModule {
     @Singleton
     internal fun provideMovieDao(appDatabase: LocalDatabase): UserDao {
         return appDatabase.getUserDao()
+    }
+
+    @Provides
+    @Singleton
+    internal fun provideChatDao(appDatabase: LocalDatabase): ChatDao {
+        return appDatabase.getChatDao()
     }
 }

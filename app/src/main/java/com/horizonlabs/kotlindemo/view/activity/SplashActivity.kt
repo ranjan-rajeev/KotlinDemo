@@ -70,13 +70,9 @@ class SplashActivity : BaseActivity() {
         }
 
         Handler().postDelayed({
-            val mainIntent = Intent(this, MainActivity::class.java)
+            val mainIntent = Intent(this, ChatActivity::class.java)
             startActivity(mainIntent)
             finish()
         }, 1000)
-    }
-
-    fun dtoreUserInSharedPreference(profileDetailsEntity: ProfileDetailsEntity?) {
-
     }
 }

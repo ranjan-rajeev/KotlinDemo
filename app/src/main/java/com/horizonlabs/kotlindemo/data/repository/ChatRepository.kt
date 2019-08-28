@@ -9,8 +9,10 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.horizonlabs.kotlindemo.data.local.dao.ChatDao
 import com.horizonlabs.kotlindemo.model.ChatEntity
+import com.horizonlabs.kotlindemo.model.ProfileDetailsEntity
 import com.horizonlabs.kotlindemo.utility.Constants
 import java.util.concurrent.Executors
+import javax.inject.Inject
 import javax.inject.Singleton
 
 
@@ -21,9 +23,9 @@ import javax.inject.Singleton
 class ChatRepository(
     val chatDao: ChatDao,
     val sharedPreferences: SharedPreferences,
-    val database: FirebaseDatabase
+    val database: FirebaseDatabase,
+    var profileDetailsEntity: ProfileDetailsEntity
 ) {
-
 
     val dbChat = database.getReference("chat")
     private val mExecutor = Executors.newSingleThreadExecutor()
@@ -31,31 +33,28 @@ class ChatRepository(
     var list: MutableLiveData<List<ChatEntity>> = MutableLiveData()
 
     fun getChatList(): LiveData<List<ChatEntity>> {
-        if (!sharedPreferences.getBoolean(Constants.FIRST_LAUNCH, false)) {
-            getChatFromServer()
+        if (!sharedPreferences.getBoolean(Constants.CHAT_OPENED_FIRST_TIME, false)) {
+            // launched chat for first time
+            initiaiteChat()
+
         }
         return chatDao.getAllChat()
     }
 
-    private fun getChatFromServer() {
-        dbChat.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                var tempList = ArrayList<ChatEntity>()
-                for (postSnapshot in dataSnapshot.children) {
-                    //getting artist
-                    val chatEntity = postSnapshot.getValue(ChatEntity::class.java)
-                    chatEntity?.let { tempList.add(it) }
-                }
-                insertList(tempList)
-                sharedPreferences.edit().putBoolean(Constants.CHAT_OPENED_FIRST_TIME, true)
-            }
-
-            override fun onCancelled(databaseError: DatabaseError) {
-
-            }
-        })
+    private fun initiaiteChat() {
+        val id = dbChat.push().key
+        val chatEntity = ChatEntity(Constants.CHAT_RECEIVED, "Welcome to Exam Preparation !!!", false, id!!)
+        profileDetailsEntity.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
+        insert(chatEntity)
+        sharedPreferences.edit().putBoolean(Constants.CHAT_OPENED_FIRST_TIME, true).commit()
     }
 
+    fun addUserInput(input :String){
+        val id = dbChat.push().key
+        val chatEntity = ChatEntity(Constants.CHAT_SENT, input, false, id!!)
+        profileDetailsEntity.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
+        insert(chatEntity)
+    }
 
     fun insertList(list: List<ChatEntity>?) {
         mExecutor.execute { chatDao.insertChatList(list) }
