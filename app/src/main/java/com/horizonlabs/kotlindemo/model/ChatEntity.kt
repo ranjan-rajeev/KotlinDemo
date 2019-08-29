@@ -2,6 +2,7 @@ package com.horizonlabs.kotlindemo.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.util.*
 
 
 /**
@@ -9,13 +10,13 @@ import androidx.room.PrimaryKey
  */
 @Entity
 data class ChatEntity(
-    var chatType: Int,
-    var chatDetails: String,
-    var isUserInputRequired: Boolean,
-    var firebaseId: String = ""
+    var chatType: Int = 1,
+    var chatDetails: String = "",
+    var isUserInputRequired: Boolean = false,
+    @PrimaryKey var chatId: String = "",
+    var createdAt: String = "" + Calendar.getInstance(),
+    var seqId: Int = 0
 ) {
-    @PrimaryKey(autoGenerate = true)
-    public var chatId: Int = 0
 }
 
 

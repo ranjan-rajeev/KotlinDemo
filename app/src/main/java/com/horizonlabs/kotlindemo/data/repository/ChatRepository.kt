@@ -28,6 +28,7 @@ class ChatRepository(
 ) {
 
     val dbChat = database.getReference("chat")
+    val dbSequence = database.getReference("sequence")
     private val mExecutor = Executors.newSingleThreadExecutor()
 
     var list: MutableLiveData<List<ChatEntity>> = MutableLiveData()
@@ -46,14 +47,18 @@ class ChatRepository(
         val chatEntity = ChatEntity(Constants.CHAT_RECEIVED, "Welcome to Exam Preparation !!!", false, id!!)
         profileDetailsEntity.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
         insert(chatEntity)
-        sharedPreferences.edit().putBoolean(Constants.CHAT_OPENED_FIRST_TIME, true).commit()
+        sharedPreferences.edit().putBoolean(Constants.CHAT_OPENED_FIRST_TIME, true).apply()
     }
 
-    fun addUserInput(input :String){
+    fun addUserInput(input: String) {
         val id = dbChat.push().key
         val chatEntity = ChatEntity(Constants.CHAT_SENT, input, false, id!!)
         profileDetailsEntity.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
         insert(chatEntity)
+    }
+
+    fun fetchNextChat(sequenceId: Int) {
+
     }
 
     fun insertList(list: List<ChatEntity>?) {

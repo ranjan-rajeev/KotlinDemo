@@ -72,6 +72,9 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.ItemClick
     }
 
     override fun onLastItemReached(chatEntity: ChatEntity) {
+        if(!chatEntity.isUserInputRequired){
+            chatViewModel.fetchNextChat(chatEntity.seqId)
+        }
         Toast.makeText(this@ChatActivity, "Last Item Reached", Toast.LENGTH_SHORT).show()
     }
 

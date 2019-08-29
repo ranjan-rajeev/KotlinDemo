@@ -28,7 +28,7 @@ class ChatAdapter(internal var context: Context?) : RecyclerView.Adapter<ChatAda
     override fun onBindViewHolder(holder: ChatHolder, i: Int) {
         val userEntity = chatEntities?.get(i)
 
-        if ((i - 1) == chatEntities!!.size) {
+        if ((i + 1) == chatEntities!!.size) {
             userEntity?.let { itemClick!!.onLastItemReached(it) }
         }
         userEntity?.let {

@@ -38,5 +38,9 @@ class ChatViewModel @Inject constructor(
         chatRepository.addUserInput(input)
     }
 
+    fun fetchNextChat(seqId: Int) {
+        chatRepository.fetchNextChat(seqId)
+    }
+
 
 }
