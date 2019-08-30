@@ -26,4 +26,8 @@ interface ChatDao {
 
     @Delete
     fun deleteChat(chatEntity: ChatEntity)
+
+
+    @Query("SELECT max(seqId) FROM ChatEntity")
+    fun getMaxSeq(): Int
 }

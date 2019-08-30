@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.model.ChatEntity
@@ -17,7 +18,7 @@ import com.horizonlabs.kotlindemo.utility.Constants
 class ChatAdapter(internal var context: Context?) : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
 
     private var itemClick: ItemClick? = null
-    internal var chatEntities: List<ChatEntity>? = ArrayList<ChatEntity>()
+    internal var chatEntities: List<ChatEntity> = ArrayList<ChatEntity>()
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ChatHolder {
         val itView = LayoutInflater.from(viewGroup.context)
@@ -61,7 +62,9 @@ class ChatAdapter(internal var context: Context?) : RecyclerView.Adapter<ChatAda
         }
     }
 
-    fun setChatEntities(userEntities: List<ChatEntity>?) {
+    fun setChatEntities(userEntities: List<ChatEntity>) {
+       // val diffResult = DiffUtil.calculateDiff(ChatDiffCallBack(this.chatEntities, userEntities))
+        //diffResult.dispatchUpdatesTo(this);
         this.chatEntities = userEntities
         notifyDataSetChanged()
     }

@@ -31,6 +31,7 @@
                     android:value="com.horizonlabs.kotlindemo.view.activity.SplashActivity"/>
         </activity>
         <activity
+
                 android:name=".view.activity.ChatActivity"
                 android:label="@string/title_activity_chat"
                 android:parentActivityName=".view.activity.SplashActivity"

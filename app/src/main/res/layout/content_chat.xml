@@ -9,27 +9,22 @@
         tools:showIn="@layout/activity_chat"
         tools:context=".view.activity.ChatActivity">
 
+
     <androidx.recyclerview.widget.RecyclerView
+            app:stackFromEnd="true"
             android:layout_above="@+id/etInput"
             android:visibility="visible"
             android:id="@+id/rvChat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="@+id/etInput">
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <ImageView
-            android:layout_margin="@dimen/vertical_padding"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@android:drawable/ic_menu_send"
-            android:id="@+id/ivSend"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            />
 
     <EditText
-            style="@style/Style.edittext"
+            android:padding="10dp"
+            android:background="@drawable/circular_background_lightgray"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
             android:layout_width="match_parent"
@@ -37,6 +32,23 @@
             android:inputType="textPersonName"
             android:hint="@string/app_name"
             android:ems="10"
-            android:layout_toLeftOf="@+id/ivSend"
-            android:id="@+id/etInput"/>
+            android:id="@+id/etInput"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <ImageView
+            android:tint="@color/colorPrimaryDark"
+            android:layout_margin="@dimen/vertical_padding"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:drawable/ic_menu_send"
+            android:id="@+id/ivSend"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/etInput"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/etInput"
+            android:layout_marginRight="8dp"/>
+
+
 </RelativeLayout>

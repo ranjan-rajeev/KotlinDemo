@@ -23,14 +23,14 @@ import javax.inject.Inject
 class ChatViewModel @Inject constructor(
     chatDao: ChatDao,
     sharedPreferences: SharedPreferences,
-    database: FirebaseDatabase,
-    profileDetailsEntity: ProfileDetailsEntity
+    database: FirebaseDatabase
 ) :
     ViewModel() {
 
-    private val chatRepository = ChatRepository(chatDao, sharedPreferences, database, profileDetailsEntity)
+    private val chatRepository = ChatRepository(chatDao, sharedPreferences, database)
 
     fun getChatList(): LiveData<List<ChatEntity>> {
+
         return chatRepository.getChatList();
     }
 

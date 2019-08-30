@@ -3,9 +3,7 @@ package com.horizonlabs.kotlindemo.view.activity
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
@@ -19,6 +17,7 @@ import com.horizonlabs.kotlindemo.viewmodel.ChatViewModel
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_chat.*
 import javax.inject.Inject
+
 
 class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.ItemClick {
 
@@ -42,15 +41,21 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.ItemClick
         chatAdapter = ChatAdapter(this);
         rvChat = findViewById(R.id.rvChat)
         rvChat.setHasFixedSize(true)
-        rvChat.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        var layout = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
+        layout.stackFromEnd = false
+        rvChat.layoutManager = layout
         rvChat.adapter = chatAdapter
         chatAdapter.setOnItemClickListener(this)
 
         chatViewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
 
         chatViewModel.getChatList().observe(this, Observer {
-            if (it != null)
+            if (it != null) {
                 chatAdapter.setChatEntities(it)
+                if(it.size > 4)
+                rvChat.smoothScrollToPosition(it.size - 1)
+            }
+
         })
 
         etInput = findViewById(R.id.etInput)
@@ -58,7 +63,6 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.ItemClick
         ivSend.setOnClickListener(this)
 
     }
-
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.etInput) {
@@ -72,10 +76,9 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatAdapter.ItemClick
     }
 
     override fun onLastItemReached(chatEntity: ChatEntity) {
-        if(!chatEntity.isUserInputRequired){
+        if (!chatEntity.isUserInputRequired) {
             chatViewModel.fetchNextChat(chatEntity.seqId)
         }
-        Toast.makeText(this@ChatActivity, "Last Item Reached", Toast.LENGTH_SHORT).show()
     }
 
     override fun onItemClick(chatEntity: ChatEntity) {

@@ -38,7 +38,7 @@ class SharedPreferenceModule {
 
     @Provides
     @Singleton
-    internal fun provideUser(sharedPreferences: SharedPreferences, gson: Gson): ProfileDetailsEntity {
+    internal fun provideUser(sharedPreferences: SharedPreferences, gson: Gson): ProfileDetailsEntity? {
 
 
         var str = sharedPreferences.getString(Constants.USER_DETAILS, "")
@@ -48,6 +48,6 @@ class SharedPreferenceModule {
                 ProfileDetailsEntity::class.java
             )
         }
-        return ProfileDetailsEntity()
+        return null
     }
 }

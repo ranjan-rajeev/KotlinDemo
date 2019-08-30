@@ -8,8 +8,10 @@ data class SequenceEntity(
     var answerType: Int = 1,
     var chatType: Int = 0,
     var firebaseId: String = "",
+
+    @field:JvmField
     var isUserInputRequired: Boolean = false,
-    var nextSeqId: String = "",
+    var nextSeqId: Int = 0,
     var question: String = "",
     var regex: String = "",
     var seqNo: Int = 0
