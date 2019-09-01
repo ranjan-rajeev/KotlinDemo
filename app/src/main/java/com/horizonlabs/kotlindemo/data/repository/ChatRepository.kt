@@ -49,7 +49,7 @@ class ChatRepository(
 
     private fun initiaiteChat() {
         val id = dbChat.push().key
-        val chatEntity = ChatEntity(Constants.CHAT_RECEIVED, "Welcome to Exam Preparation !!!", false, id!!)
+        val chatEntity = ChatEntity(Constants.CHAT_RECEIVED, "Welcome to Exam Preparation !!!", "", false, id!!)
         profileDetailsEntity?.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
         insert(chatEntity)
         sharedPreferences.edit().putBoolean(Constants.CHAT_OPENED_FIRST_TIME, true).apply()
@@ -60,7 +60,7 @@ class ChatRepository(
         mExecutor.execute {
             val seq: Int = chatDao.getMaxSeq()
             val id = dbChat.push().key
-            val chatEntity = ChatEntity(Constants.CHAT_SENT, input, false, id!!, seqId = seq)
+            val chatEntity = ChatEntity(Constants.CHAT_SENT, input, "", false, id!!, seqId = seq)
             profileDetailsEntity?.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
             insert(chatEntity)
         }
@@ -111,6 +111,7 @@ class ChatRepository(
             val chatEntity = ChatEntity(
                 sequenceEntity.chatType,
                 sequenceEntity.question,
+                sequenceEntity.regex,
                 sequenceEntity.isUserInputRequired,
                 sequenceEntity.firebaseId,
                 seqId = sequenceEntity.nextSeqId

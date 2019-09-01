@@ -17,6 +17,8 @@ import com.horizonlabs.kotlindemo.utility.Constants
  */
 class ChatAdapter(internal var context: Context?) : RecyclerView.Adapter<ChatAdapter.ChatHolder>() {
 
+
+
     private var itemClick: ItemClick? = null
     internal var chatEntities: List<ChatEntity> = ArrayList<ChatEntity>()
 
@@ -81,4 +83,6 @@ class ChatAdapter(internal var context: Context?) : RecyclerView.Adapter<ChatAda
     fun setOnItemClickListener(listener: ItemClick) {
         this.itemClick = listener
     }
+
+
 }

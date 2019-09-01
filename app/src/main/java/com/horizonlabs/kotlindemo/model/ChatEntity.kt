@@ -12,9 +12,10 @@ import java.util.*
 data class ChatEntity(
     var chatType: Int = 1,
     var chatDetails: String = "",
+    var regex: String = "",
     var isUserInputRequired: Boolean = false,
     @PrimaryKey var chatId: String = "",
-    var createdAt: String = "" + Calendar.getInstance(),
+    var createdAt: String = "" + Calendar.getInstance().timeInMillis,
     var seqId: Int = 0
 ) {
 }
