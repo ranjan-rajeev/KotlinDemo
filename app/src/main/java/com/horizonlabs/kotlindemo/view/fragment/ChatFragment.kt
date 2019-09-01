@@ -1,7 +1,9 @@
-package com.horizonlabs.kotlindemo.view.activity
+package com.horizonlabs.kotlindemo.view.fragment
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
@@ -13,20 +15,20 @@ import androidx.recyclerview.widget.RecyclerView
 import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.adapters.ChatViewAdapter
 import com.horizonlabs.kotlindemo.model.ChatEntity
-import com.horizonlabs.kotlindemo.view.base.BaseActivity
+import com.horizonlabs.kotlindemo.view.base.BaseFragment
 import com.horizonlabs.kotlindemo.viewmodel.ChatViewModel
-import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.activity_chat.*
-import javax.inject.Inject
+import dagger.android.support.AndroidSupportInjection
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 
-class ChatActivity : BaseActivity(), View.OnClickListener, ChatViewAdapter.ItemClick {
-
+/**
+ * Created by Rajeev Ranjan -  ABPB on 21-08-2019.
+ */
+class ChatFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemClick {
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-
     lateinit var chatViewModel: ChatViewModel
     lateinit var rvChat: RecyclerView
     lateinit var chatAdapter: ChatViewAdapter
@@ -36,20 +38,11 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatViewAdapter.ItemC
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
-        setSupportActionBar(toolbar)
-        AndroidInjection.inject(this)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        AndroidSupportInjection.inject(this)
+        initialiseViewModel()
+    }
 
-        chatAdapter = ChatViewAdapter(this);
-        rvChat = findViewById(R.id.rvChat)
-        rvChat.setHasFixedSize(true)
-        var layout = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
-        layout.stackFromEnd = false
-        rvChat.layoutManager = layout
-        rvChat.adapter = chatAdapter
-        chatAdapter.setOnItemClickListener(this)
-
+    private fun initialiseViewModel() {
         chatViewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
 
         chatViewModel.getChatList().observe(this, Observer {
@@ -60,18 +53,34 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatViewAdapter.ItemC
             }
 
         })
-
-        etInput = findViewById(R.id.etInput)
-        ivSend = findViewById(R.id.ivSend)
-        ivSend.setOnClickListener(this)
-
     }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    ): View? {
+
+        var view = inflater.inflate(R.layout.fragment_chat, container, false)
+        chatAdapter = ChatViewAdapter(this.context!!);
+        rvChat = view.findViewById(R.id.rvChat)
+        rvChat.setHasFixedSize(true)
+        var layout = LinearLayoutManager(this.activity, RecyclerView.VERTICAL, false)
+        layout.stackFromEnd = false
+        rvChat.layoutManager = layout
+        rvChat.adapter = chatAdapter
+        chatAdapter.setOnItemClickListener(this)
+
+        etInput = view.findViewById(R.id.etInput)
+        ivSend = view.findViewById(R.id.ivSend)
+        ivSend.setOnClickListener(this)
+        return view
+    }
+
 
     override fun onClick(v: View?) {
         if (v?.id == R.id.etInput) {
 
         } else if (v?.id == R.id.ivSend) {
-            if (validate(chatEntity,etInput)) {
+            if (validate(chatEntity, etInput)) {
                 chatViewModel.addUserInput(etInput.text.toString())
                 etInput.setText("")
             }
@@ -83,7 +92,7 @@ class ChatActivity : BaseActivity(), View.OnClickListener, ChatViewAdapter.ItemC
         val pattern = Pattern.compile("" + chatEntity.regex)
         val matcher = pattern.matcher(input)
         if (!matcher.matches()) {
-            Toast.makeText(this,"Enter valid data",Toast.LENGTH_LONG).show()
+            Toast.makeText(this.context, "Enter valid data", Toast.LENGTH_LONG).show()
             return false
         }
         return true

@@ -70,7 +70,7 @@ class SplashActivity : BaseActivity() {
         }
 
         Handler().postDelayed({
-            val mainIntent = Intent(this, ChatActivity::class.java)
+            val mainIntent = Intent(this, MainActivity::class.java)
             startActivity(mainIntent)
             finish()
         }, 1000)
