@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.adapters.ChatViewAdapter
 import com.horizonlabs.kotlindemo.model.ChatEntity
+import com.horizonlabs.kotlindemo.utility.Logger
 import com.horizonlabs.kotlindemo.view.base.BaseFragment
 import com.horizonlabs.kotlindemo.viewmodel.ChatViewModel
+import com.horizonlabs.kotlindemo.viewmodel.ExamViewModel
 import dagger.android.support.AndroidSupportInjection
 import java.util.regex.Pattern
 import javax.inject.Inject
@@ -25,11 +27,11 @@ import javax.inject.Inject
 /**
  * Created by Rajeev Ranjan -  ABPB on 21-08-2019.
  */
-class ExamFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemClick {
+class ExamFragment : BaseFragment()/*, View.OnClickListener, ChatViewAdapter.ItemClick*/ {
 
     @Inject
     internal lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var chatViewModel: ChatViewModel
+    lateinit var examViewModel: ExamViewModel
     lateinit var rvChat: RecyclerView
     lateinit var chatAdapter: ChatViewAdapter
     lateinit var etInput: EditText
@@ -43,15 +45,15 @@ class ExamFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemC
     }
 
     private fun initialiseViewModel() {
-        chatViewModel = ViewModelProviders.of(this, viewModelFactory).get(ChatViewModel::class.java)
+        examViewModel = ViewModelProviders.of(this, viewModelFactory).get(ExamViewModel::class.java)
 
-        chatViewModel.getChatList().observe(this, Observer {
+        examViewModel.getChatList().observe(this, Observer {
             if (it != null) {
-                chatAdapter.setChatEntities(it)
-                if (it.size > 4)
-                    rvChat.smoothScrollToPosition(it.size - 1)
+                Logger.d("" + it.size)
+                /* chatAdapter.setChatEntities(it)
+                 if (it.size > 4)
+                     rvChat.smoothScrollToPosition(it.size - 1)*/
             }
-
         })
     }
 
@@ -60,7 +62,7 @@ class ExamFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemC
     ): View? {
 
         var view = inflater.inflate(R.layout.fragment_chat, container, false)
-        chatAdapter = ChatViewAdapter(this.context!!);
+       /* chatAdapter = ChatViewAdapter(this.context!!);
         rvChat = view.findViewById(R.id.rvChat)
         rvChat.setHasFixedSize(true)
         var layout = LinearLayoutManager(this.activity, RecyclerView.VERTICAL, false)
@@ -71,12 +73,12 @@ class ExamFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemC
 
         etInput = view.findViewById(R.id.etInput)
         ivSend = view.findViewById(R.id.ivSend)
-        ivSend.setOnClickListener(this)
+        ivSend.setOnClickListener(this)*/
         return view
     }
 
 
-    override fun onClick(v: View?) {
+   /* override fun onClick(v: View?) {
         if (v?.id == R.id.etInput) {
 
         } else if (v?.id == R.id.ivSend) {
@@ -111,5 +113,5 @@ class ExamFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemC
 
     override fun onLongClick(chatEntity: ChatEntity) {
 
-    }
+    }*/
 }

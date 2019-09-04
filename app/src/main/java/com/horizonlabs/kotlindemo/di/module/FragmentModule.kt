@@ -1,6 +1,7 @@
 package com.horizonlabs.kotlindemo.di.module
 
 import com.horizonlabs.kotlindemo.view.fragment.ChatFragment
+import com.horizonlabs.kotlindemo.view.fragment.ExamFragment
 import com.horizonlabs.kotlindemo.view.fragment.UserFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -17,4 +18,7 @@ abstract class FragmentModule {
 
     @ContributesAndroidInjector
     abstract fun contributeChatFragment(): ChatFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeExamFragment(): ExamFragment
 }

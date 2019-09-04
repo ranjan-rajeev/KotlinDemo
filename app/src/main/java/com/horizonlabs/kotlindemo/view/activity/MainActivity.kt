@@ -23,6 +23,7 @@ import com.horizonlabs.kotlindemo.data.remote.ApiStatus
 import com.horizonlabs.kotlindemo.model.UserEntity
 import com.horizonlabs.kotlindemo.view.base.BaseActivity
 import com.horizonlabs.kotlindemo.view.fragment.ChatFragment
+import com.horizonlabs.kotlindemo.view.fragment.ExamFragment
 import com.horizonlabs.kotlindemo.view.fragment.UserFragment
 import com.horizonlabs.kotlindemo.viewmodel.UserViewModel
 import dagger.android.AndroidInjection
@@ -72,7 +73,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         transaction.commit()*/
 
 
-        val chatFragment = ChatFragment()
+        val chatFragment = ExamFragment()
         chatFragment.arguments = intent.extras
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.frame, chatFragment)
