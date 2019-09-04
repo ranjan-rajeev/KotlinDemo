@@ -44,8 +44,8 @@ class ExamRepository(
     }
 
     fun fetchQuestionFromServer() {
-
-        dbQues.addValueEventListener(object : ValueEventListener {
+        val query = dbQues.orderByChild("selectTopic").equalTo("Politics")
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 if (dataSnapshot.exists()) {
@@ -54,7 +54,7 @@ class ExamRepository(
 
                         examEntity?.let {
                             list.add(examEntity)
-                            Logger.d("" + examEntity.option.get(1))
+                            Logger.d("{${examEntity.quesString}}   " + examEntity.option.get(1))
                         }
                     }
                     listLiveData.postValue(list)
