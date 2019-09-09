@@ -1,31 +1,18 @@
 package com.horizonlabs.kotlindemo.view.activity
 
 import android.os.Bundle
-import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.navigation.NavigationView
-import androidx.core.view.GravityCompat
-import androidx.appcompat.app.ActionBarDrawerToggle
-import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.navigation.NavigationView
 import com.horizonlabs.kotlindemo.R
-import com.horizonlabs.kotlindemo.adapters.UserAdapter
-import com.horizonlabs.kotlindemo.data.remote.ApiResponse
-import com.horizonlabs.kotlindemo.data.remote.ApiStatus
-import com.horizonlabs.kotlindemo.model.UserEntity
 import com.horizonlabs.kotlindemo.view.base.BaseActivity
 import com.horizonlabs.kotlindemo.view.fragment.ChatFragment
 import com.horizonlabs.kotlindemo.view.fragment.ExamFragment
-import com.horizonlabs.kotlindemo.view.fragment.UserFragment
-import com.horizonlabs.kotlindemo.viewmodel.UserViewModel
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -73,7 +60,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         transaction.commit()*/
 
 
-        val chatFragment = ExamFragment()
+        val chatFragment = ChatFragment()
         chatFragment.arguments = intent.extras
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.frame, chatFragment)
