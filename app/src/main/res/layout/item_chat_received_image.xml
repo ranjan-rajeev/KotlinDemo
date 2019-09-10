@@ -11,7 +11,7 @@
             android:src="@drawable/katrina"
             android:scaleType="fitCenter"
             android:layout_marginRight="@dimen/chat_margin_image"
-            android:id="@+id/ivImage"
+            android:id="@+id/ivQuesUrl"
             android:layout_width="match_parent"
             android:layout_height="300dp"/>
 </LinearLayout>

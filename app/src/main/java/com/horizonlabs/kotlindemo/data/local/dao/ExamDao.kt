@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.horizonlabs.kotlindemo.model.ExamEntity
+import com.horizonlabs.kotlindemo.model.QuestionEntity
 
 
 /**
@@ -13,10 +13,10 @@ import com.horizonlabs.kotlindemo.model.ExamEntity
  */
 @Dao
 interface ExamDao {
-    @Query("SELECT * FROM ExamEntity")
-    fun getAllQuestions(): LiveData<List<ExamEntity>>
+    @Query("SELECT * FROM QuestionEntity")
+    fun getAllQuestions(): LiveData<List<QuestionEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertQuesList(list: List<ExamEntity>)
+    fun insertQuesList(list: List<QuestionEntity>)
 
 }

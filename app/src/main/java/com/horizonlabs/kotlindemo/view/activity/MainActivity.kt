@@ -60,7 +60,7 @@ class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedList
         transaction.commit()*/
 
 
-        val chatFragment = ChatFragment()
+        val chatFragment = ExamFragment()
         chatFragment.arguments = intent.extras
         val transaction = supportFragmentManager.beginTransaction()
         transaction.add(R.id.frame, chatFragment)

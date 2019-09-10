@@ -5,9 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.database.*
 import com.google.gson.Gson
+import com.horizonlabs.kotlindemo.adapters.ChatViewAdapter
 import com.horizonlabs.kotlindemo.data.local.dao.ChatDao
 import com.horizonlabs.kotlindemo.model.ChatEntity
 import com.horizonlabs.kotlindemo.model.ProfileDetailsEntity
+import com.horizonlabs.kotlindemo.model.QuestionEntity
 import com.horizonlabs.kotlindemo.model.SequenceEntity
 import com.horizonlabs.kotlindemo.utility.Constants
 import com.horizonlabs.kotlindemo.utility.Logger
@@ -29,6 +31,7 @@ class ChatRepository(
     var profileDetailsEntity: ProfileDetailsEntity? = null
     val dbChat = database.getReference("chat")
     val dbSequence = database.getReference("sequence")
+
     private val mExecutor = Executors.newSingleThreadExecutor()
     var list: MutableLiveData<List<ChatEntity>> = MutableLiveData()
 
@@ -49,21 +52,40 @@ class ChatRepository(
 
     private fun initiaiteChat() {
         val id = dbChat.push().key
-        val chatEntity = ChatEntity(Constants.CHAT_RECEIVED, "Welcome to Exam Preparation !!!", "", false, id!!)
+        val chatEntity = ChatEntity(ChatViewAdapter.TYPE_RECEIVED, "Welcome to Exam Preparation !!!", "", false, id!!)
         profileDetailsEntity?.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
         insert(chatEntity)
         sharedPreferences.edit().putBoolean(Constants.CHAT_OPENED_FIRST_TIME, true).apply()
     }
 
-    fun addUserInput(input: String) {
+    fun addUserInput(input: String, chatType: Int, isUserInputRequired: Boolean) {
 
         mExecutor.execute {
             val seq: Int = chatDao.getMaxSeq()
             val id = dbChat.push().key
-            val chatEntity = ChatEntity(Constants.CHAT_SENT, input, "", false, id!!, seqId = seq)
+            val chatEntity = ChatEntity(chatType, input, "", isUserInputRequired, id!!, seqId = seq)
             profileDetailsEntity?.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
             insert(chatEntity)
         }
+    }
+
+    fun addAnswer(input: String) {
+
+        mExecutor.execute {
+            val seq: Int = chatDao.getMaxSeq()
+            val id = dbChat.push().key
+            val chatEntity = ChatEntity(ChatViewAdapter.TYPE_SENT, input, "", false, id!!, seqId = seq)
+            profileDetailsEntity?.firebaseId?.let { dbChat.child(it).child(id).setValue(chatEntity) }
+            insert(chatEntity)
+        }
+    }
+
+    fun updateChatEntity(chatEntity: ChatEntity, questionEntity: QuestionEntity) {
+        mExecutor.execute {
+            chatEntity.chatDetails = Gson().toJson(questionEntity)
+            chatDao.updateChat(chatEntity)
+        }
+
     }
 
     fun fetchNextChat(sequenceId: Int) {
@@ -77,7 +99,12 @@ class ChatRepository(
                         sequenceEntity?.let {
                             if (sequenceEntity.seqNo == sequenceId) {
                                 Logger.d(sequenceEntity.question)
-                                addChatFromSequence(sequenceEntity)
+                                if (sequenceEntity.chatType == ChatViewAdapter.TYPE_RECEIVED_FLEX) {
+                                    fetchQuestion(sequenceEntity)
+                                } else {
+                                    addChatFromSequence(sequenceEntity)
+                                }
+
                             }
                         }
                     }
@@ -106,7 +133,32 @@ class ChatRepository(
         mExecutor.execute { chatDao.deleteChat(chatEntity) }
     }
 
+    fun fetchQuestion(sequenceEntity: SequenceEntity) {
+        if (sequenceEntity.chatType == ChatViewAdapter.TYPE_RECEIVED_FLEX) {
+            val dbQuestion = database.getReference("questions").orderByKey().equalTo(sequenceEntity.question)
+            dbQuestion.addListenerForSingleValueEvent(object : ValueEventListener {
+
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        for (data in dataSnapshot.children) {
+                            val examEntity = data.getValue(QuestionEntity::class.java)
+                            sequenceEntity.question = Gson().toJson(examEntity)
+                            addChatFromSequence(sequenceEntity)
+                        }
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+
+                }
+            })
+
+            return;
+        }
+    }
+
     fun addChatFromSequence(sequenceEntity: SequenceEntity) {
+
         mExecutor.execute {
             val chatEntity = ChatEntity(
                 sequenceEntity.chatType,
@@ -125,7 +177,7 @@ class ChatRepository(
 
             if (chatEntity.seqId in 3..5) {
                 try {
-                    Thread.sleep(1000)
+                    Thread.sleep(2000)
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }

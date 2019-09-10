@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:app="http://schemas.android.com/apk/res-auto"
+		xmlns:tools="http://schemas.android.com/tools" android:layout_marginTop="@dimen/vertical_padding"
+		android:layout_width="match_parent"
+		app:cardCornerRadius="@dimen/vertical_padding"
+		android:layout_height="match_parent">
+
+
+	<androidx.constraintlayout.widget.ConstraintLayout
+			android:background="@android:color/white"
+			android:padding="@dimen/vertical_padding"
+			android:layout_width="match_parent"
+			android:layout_height="match_parent">
+
+		<TextView
+				android:background="@drawable/circle_grey"
+				android:text="10"
+				android:textStyle="bold"
+				android:gravity="center"
+				android:textSize="@dimen/text_large"
+				android:textColor="@android:color/white"
+				android:layout_width="36dp"
+				android:layout_height="36dp"
+				android:id="@+id/tvQno" app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"
+				android:layout_marginStart="8dp" android:layout_marginTop="8dp"/>
+		<TextView
+				android:textSize="@dimen/text_large"
+				android:textColor="@color/header_dark_text"
+				android:text=""
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvInst" app:layout_constraintStart_toEndOf="@+id/tvQno"
+				android:layout_marginLeft="16dp" android:layout_marginStart="16dp"
+				app:layout_constraintTop_toTopOf="@+id/tvQno"
+				app:layout_constraintBottom_toBottomOf="@+id/tvQno"
+				app:layout_constraintEnd_toStartOf="@+id/ivMark" android:layout_marginEnd="8dp"
+				android:layout_marginRight="8dp"/>
+		<TextView
+				android:textColor="@color/uvv_black"
+				android:textSize="@dimen/text_large"
+				android:visibility="visible"
+				android:text="Who is the prime minister of India ?"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:id="@+id/tvQuestion"
+				android:layout_marginTop="8dp"
+				app:layout_constraintTop_toBottomOf="@+id/tvQno" app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginRight="8dp" android:layout_marginEnd="8dp" android:layout_marginStart="8dp"
+				app:layout_constraintStart_toStartOf="parent" android:layout_marginLeft="8dp"/>
+
+		<ImageView
+				android:visibility="gone"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content" app:srcCompat="@android:drawable/star_big_off"
+				android:id="@+id/ivMark" app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="8dp" android:layout_marginRight="8dp"
+				app:layout_constraintTop_toTopOf="@+id/tvQno" app:layout_constraintBottom_toBottomOf="@+id/tvQno"/>
+
+		<ImageView
+				android:visibility="visible"
+				android:adjustViewBounds="true"
+				android:src="@drawable/katrina"
+				android:scaleType="fitCenter"
+				android:id="@+id/ivQuesUrl"
+				android:layout_width="match_parent"
+				android:layout_height="300dp"
+				android:layout_marginTop="8dp"
+				app:layout_constraintTop_toBottomOf="@+id/tvQuestion"
+				app:layout_constraintStart_toStartOf="parent"
+				android:layout_marginLeft="8dp"
+				android:layout_marginStart="8dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="8dp"
+				android:layout_marginRight="8dp"/>
+
+		<TextView
+				android:id="@+id/tvOptionOne"
+				style="@style/TextViewStyle.Medium"
+				android:text="A.  Rajeev Ranjan"
+				android:paddingLeft="24dp" android:background="@drawable/flex_unselected"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="parent"
+				android:layout_marginLeft="24dp" android:layout_marginStart="24dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="24dp" android:layout_marginRight="24dp" android:layout_marginTop="24dp"
+				app:layout_constraintTop_toBottomOf="@+id/ivQuesUrl"/>
+
+		<TextView
+				android:id="@+id/tvOptionTwo"
+				style="@style/TextViewStyle.Medium"
+				android:text="A.  Rajeev Ranjan"
+				android:paddingLeft="24dp" android:background="@drawable/flex_unselected"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="parent"
+				android:layout_marginLeft="24dp" android:layout_marginStart="24dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="24dp" android:layout_marginRight="24dp" android:layout_marginTop="16dp"
+				app:layout_constraintTop_toBottomOf="@+id/tvOptionOne"/>
+
+		<TextView
+				android:id="@+id/tvOptionThree"
+				style="@style/TextViewStyle.Medium"
+				android:text="A.  Rajeev Ranjan"
+				android:paddingLeft="24dp" android:background="@drawable/flex_unselected"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="parent"
+				android:layout_marginLeft="24dp" android:layout_marginStart="24dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="24dp" android:layout_marginRight="24dp" android:layout_marginTop="16dp"
+				app:layout_constraintTop_toBottomOf="@+id/tvOptionTwo"/>
+
+		<TextView
+				android:id="@+id/tvOptionFour"
+				style="@style/TextViewStyle.Medium"
+				android:text="A.  Rajeev Ranjan"
+				android:paddingLeft="24dp" android:background="@drawable/flex_unselected"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="parent"
+				android:layout_marginLeft="24dp" android:layout_marginStart="24dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="24dp" android:layout_marginRight="24dp" android:layout_marginTop="16dp"
+				app:layout_constraintTop_toBottomOf="@+id/tvOptionThree"/>
+
+		<TextView
+				android:id="@+id/tvOptionFive"
+				style="@style/TextViewStyle.Medium"
+				android:text="A.  Rajeev Ranjan"
+				android:paddingLeft="24dp" android:background="@drawable/flex_unselected"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="parent"
+				android:layout_marginLeft="24dp" android:layout_marginStart="24dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="24dp" android:layout_marginRight="24dp" android:layout_marginTop="16dp"
+				app:layout_constraintTop_toBottomOf="@+id/tvOptionFour"/>
+
+		<TextView
+				android:id="@+id/tvOptionSix"
+				style="@style/TextViewStyle.Medium"
+				android:text="A.  Rajeev Ranjan"
+				android:paddingLeft="24dp" android:background="@drawable/flex_unselected"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
+				app:layout_constraintStart_toStartOf="parent"
+				android:layout_marginLeft="24dp" android:layout_marginStart="24dp"
+				app:layout_constraintEnd_toEndOf="parent"
+				android:layout_marginEnd="24dp" android:layout_marginRight="24dp" android:layout_marginTop="16dp"
+				app:layout_constraintTop_toBottomOf="@+id/tvOptionFive"/>
+	</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

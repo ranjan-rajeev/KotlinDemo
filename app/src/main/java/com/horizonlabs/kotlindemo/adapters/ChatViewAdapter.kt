@@ -2,8 +2,6 @@ package com.horizonlabs.kotlindemo.adapters
 
 import android.content.Context
 import android.os.Build
-import android.util.TypedValue.COMPLEX_UNIT_SP
-import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +11,12 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.flexbox.FlexboxLayout
+import com.google.gson.Gson
 import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.model.ChatEntity
+import com.horizonlabs.kotlindemo.model.QuestionEntity
+import com.horizonlabs.kotlindemo.utility.Logger
 import kotlinx.android.synthetic.main.item_textview_flex.view.*
-import org.w3c.dom.Text
 
 
 /**
@@ -25,10 +25,10 @@ import org.w3c.dom.Text
 class ChatViewAdapter(private val context: Context) : RecyclerView.Adapter<ChatViewAdapter.BaseViewHolder<*>>() {
 
     companion object {
-        private const val TYPE_SENT = 1
-        private const val TYPE_RECEIVED = 2
-        private const val TYPE_RECEIVED_IMAGE = 3
-        private const val TYPE_RECEIVED_FLEX = 4
+        const val TYPE_SENT = 1
+        const val TYPE_RECEIVED = 2
+        const val TYPE_RECEIVED_IMAGE = 3
+        const val TYPE_RECEIVED_FLEX = 4
     }
 
     private var itemClick: ChatViewAdapter.ItemClick? = null
@@ -132,7 +132,7 @@ class ChatViewAdapter(private val context: Context) : RecyclerView.Adapter<ChatV
         internal var ivImage: ImageView
 
         init {
-            ivImage = itemView.findViewById(R.id.ivImage)
+            ivImage = itemView.findViewById(R.id.ivQuesUrl)
         }
 
         override fun bind(item: ChatEntity?) {
@@ -161,9 +161,13 @@ class ChatViewAdapter(private val context: Context) : RecyclerView.Adapter<ChatV
 
         @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
         override fun bind(item: ChatEntity?) {
+
             //Do your view assignment here from the data model
             item?.let {
-                setTextViewInFlexbox(it, flexboxlayout)
+                Logger.d(item.chatDetails)
+                val question = Gson().fromJson(item.chatDetails, QuestionEntity::class.java)
+                msgReceived.text = question.quesString
+                setTextViewInFlexbox(item, question, flexboxlayout)
             }
         }
     }
@@ -186,6 +190,8 @@ class ChatViewAdapter(private val context: Context) : RecyclerView.Adapter<ChatV
         fun onItemClick(chatEntity: ChatEntity)
 
         fun onLongClick(chatEntity: ChatEntity)
+
+        fun onOptionSelected(chatEntity: ChatEntity, questionEntity: QuestionEntity)
     }
 
     fun setOnItemClickListener(listener: ItemClick) {
@@ -193,24 +199,34 @@ class ChatViewAdapter(private val context: Context) : RecyclerView.Adapter<ChatV
     }
 
     @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
-    private fun setTextViewInFlexbox(chatEntity: ChatEntity, flexboxlayout: FlexboxLayout) {
+    private fun setTextViewInFlexbox(
+        chatEntity: ChatEntity,
+        questionEntity: QuestionEntity,
+        flexboxlayout: FlexboxLayout
+    ) {
         flexboxlayout.removeAllViews()
-        for (i in 1..4) {
+        for (x in 0 until questionEntity.option.size step 1) {
 
             val view = LayoutInflater.from(context).inflate(R.layout.item_textview_flex, null)
-            view.tvTitle.text = chatEntity.chatDetails
+            view.tvTitle.text = questionEntity.option[x]
+            if (questionEntity.selectedAns == x) {
+                view.tvTitle.setBackgroundResource(R.drawable.flex_selected)
+            } else {
+                view.tvTitle.setBackgroundResource(R.drawable.flex_unselected)
+            }
             flexboxlayout.addView(view)
 
-            view.setOnClickListener { v ->
-               /* if (view.tvTitle.textColors == context.resources.getDrawable(R.drawable.flex_selected)) {
-                    view.tvTitle.background = context.resources.getDrawable(R.drawable.flex_unselected)
-                    view.tvTitle.setTextColor(context.resources.getColor(android.R.color.black))
-                } else {
-                    view.tvTitle.background = context.resources.getDrawable(R.drawable.flex_selected)
-                    view.tvTitle.setTextColor(context.resources.getColor(android.R.color.white))
-                }*/
 
+            if (questionEntity.selectedAns == -1) {
+                view.setOnClickListener { v ->
+                    questionEntity.selectedAns = x
+                    view.tvTitle.setBackgroundResource(R.drawable.flex_selected)
+                    itemClick!!.onOptionSelected(chatEntity, questionEntity)
+                }
+            } else {
+                view.setOnClickListener { null }
             }
+
         }
     }
 

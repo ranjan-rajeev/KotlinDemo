@@ -9,7 +9,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.horizonlabs.kotlindemo.data.local.dao.ExamDao
-import com.horizonlabs.kotlindemo.model.ExamEntity
+import com.horizonlabs.kotlindemo.model.QuestionEntity
 import com.horizonlabs.kotlindemo.model.ProfileDetailsEntity
 import com.horizonlabs.kotlindemo.utility.Constants
 import com.horizonlabs.kotlindemo.utility.Logger
@@ -31,30 +31,30 @@ class ExamRepository(
     var profileDetailsEntity: ProfileDetailsEntity? = null
     val dbQues = database.getReference("questions")
     private val mExecutor = Executors.newSingleThreadExecutor()
-    var listLiveData: MutableLiveData<List<ExamEntity>> = MutableLiveData()
-    var list: MutableList<ExamEntity> = ArrayList()
+    var listLiveData: MutableLiveData<List<QuestionEntity>> = MutableLiveData()
+    var list: MutableList<QuestionEntity> = ArrayList()
 
     init {
         fetchUser()
     }
 
-    fun getQuestions(): LiveData<List<ExamEntity>> {
+    fun getQuestions(): LiveData<List<QuestionEntity>> {
         fetchQuestionFromServer();
         return examDao.getAllQuestions()
     }
 
     fun fetchQuestionFromServer() {
-        val query = dbQues.orderByChild("selectTopic").equalTo("Politics")
+        val query = dbQues.orderByChild("selectTopic")
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
 
                 if (dataSnapshot.exists()) {
                     for (data in dataSnapshot.children) {
-                        val examEntity = data.getValue(ExamEntity::class.java)
+                        val questionEntity = data.getValue(QuestionEntity::class.java)
 
-                        examEntity?.let {
-                            list.add(examEntity)
-                            Logger.d("{${examEntity.quesString}}   " + examEntity.option.get(1))
+                        questionEntity?.let {
+                            list.add(questionEntity)
+                            Logger.d("{${questionEntity.quesString}}   " + questionEntity.option.get(1))
                         }
                     }
                     listLiveData.postValue(list)
@@ -68,19 +68,19 @@ class ExamRepository(
         })
     }
 
-    fun insertList(list: List<ExamEntity>) {
+    fun insertList(list: List<QuestionEntity>) {
         mExecutor.execute { examDao.insertQuesList(list) }
     }
 
-    /*fun insert(examEntity: ExamEntity) {
+    /*fun insert(examEntity: QuestionEntity) {
         mExecutor.execute { examDao.insertChat(examEntity) }
     }
 
-    fun update(examEntity: ExamEntity) {
+    fun update(examEntity: QuestionEntity) {
         mExecutor.execute { examDao.updateChat(examEntity) }
     }
 
-    fun deleteChat(examEntity: ExamEntity) {
+    fun deleteChat(examEntity: QuestionEntity) {
         mExecutor.execute { examDao.deleteChat(examEntity) }
     }*/
 

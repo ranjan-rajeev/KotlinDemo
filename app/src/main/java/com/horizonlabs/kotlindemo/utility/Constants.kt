@@ -15,8 +15,6 @@ class Constants {
         val USER_DETAILS = "user_details"
         val FIRST_LAUNCH = "first_time_app_launch"
         val CHAT_OPENED_FIRST_TIME ="chat_opened_first_time"
-        val CHAT_SENT: Int = 1
-        val CHAT_RECEIVED: Int = 2
     }
 
 }

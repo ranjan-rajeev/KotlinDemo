@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.horizonlabs.kotlindemo.R
 import com.horizonlabs.kotlindemo.adapters.ChatViewAdapter
 import com.horizonlabs.kotlindemo.model.ChatEntity
+import com.horizonlabs.kotlindemo.model.QuestionEntity
 import com.horizonlabs.kotlindemo.view.base.BaseFragment
 import com.horizonlabs.kotlindemo.viewmodel.ChatViewModel
 import dagger.android.support.AndroidSupportInjection
@@ -33,6 +35,7 @@ class ChatFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemC
     lateinit var rvChat: RecyclerView
     lateinit var chatAdapter: ChatViewAdapter
     lateinit var etInput: EditText
+    lateinit var rlInput: RelativeLayout
     lateinit var ivSend: ImageView
     lateinit var chatEntity: ChatEntity
 
@@ -69,6 +72,7 @@ class ChatFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemC
         rvChat.adapter = chatAdapter
         chatAdapter.setOnItemClickListener(this)
 
+        rlInput = view.findViewById(R.id.rlInput)
         etInput = view.findViewById(R.id.etInput)
         ivSend = view.findViewById(R.id.ivSend)
         ivSend.setOnClickListener(this)
@@ -102,6 +106,9 @@ class ChatFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemC
         this.chatEntity = chatEntity
         if (!chatEntity.isUserInputRequired) {
             chatViewModel.fetchNextChat(chatEntity.seqId)
+            rlInput.visibility = View.GONE
+        } else {
+            rlInput.visibility = View.VISIBLE
         }
     }
 
@@ -110,6 +117,18 @@ class ChatFragment : BaseFragment(), View.OnClickListener, ChatViewAdapter.ItemC
     }
 
     override fun onLongClick(chatEntity: ChatEntity) {
+
+    }
+
+    override fun onOptionSelected(chatEntity: ChatEntity, questionEntity: QuestionEntity) {
+        this.chatEntity = chatEntity
+        chatViewModel.updateChatEntity(chatEntity, questionEntity)
+        chatViewModel.addUserInput(questionEntity.option[questionEntity.selectedAns], ChatViewAdapter.TYPE_SENT, true)
+        chatViewModel.addUserInput(
+            "Correct Answer is :  " + questionEntity.option[questionEntity.correctAns],
+            ChatViewAdapter.TYPE_RECEIVED,
+            false
+        )
 
     }
 }

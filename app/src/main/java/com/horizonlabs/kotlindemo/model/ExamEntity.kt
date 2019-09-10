@@ -9,19 +9,16 @@ import java.util.ArrayList
 
 @Entity
 data class ExamEntity(
-    @SerializedName("ansExplanation") val ansExplanation: String = "",
-    @SerializedName("correctAns") val correctAns: Int = 0,
-    @SerializedName("diffLevel") val diffLevel: Int = 0,
-    @SerializedName("expTime") val expTime: Int = 0,
-    @PrimaryKey @SerializedName("firebaseId") val firebaseId: String = "",
 
+    @PrimaryKey @SerializedName("firebaseId") val firebaseId: String = "",
     @TypeConverters(StringConverter::class)
-    @SerializedName("option") val option: List<String> = ArrayList<String>(),
-    @SerializedName("quesId") val quesId: Int = 0,
-    @SerializedName("quesLang") val quesLang: Int = 0,
-    @SerializedName("quesString") val quesString: String = "",
-    @SerializedName("questionUrl") val questionUrl: String = "",
-    @SerializedName("relatedExam") val relatedExam: Int = 0,
-    @SerializedName("selectSubject") val selectSubject: Int = 0,
-    @SerializedName("selectTopic") val selectTopic: String = ""
+    @SerializedName("questions") val questions: List<String> = ArrayList<String>(),
+    @SerializedName("examId") val examId: Int = 0,
+    @SerializedName("examName") val examName: String = "",
+    @SerializedName("totalQuest") val totalQues: Int = 0,
+    @SerializedName("quesString") val quesAttemp: Int = 0,
+    @SerializedName("questionUrl") val correctQues: Int = 0,
+    @SerializedName("relatedExam") val incorrectQues: Int = 0,
+    @SerializedName("selectSubject") val marksObtained: Double = 0.0,
+    @SerializedName("selectTopic") val totalMarks: Double = 0.0
 )
